@@ -1,0 +1,19 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node build/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "17.0.24",
+    "nodemon": "2.0.15",
+    "redis": "4.0.6"
+  }
+}
