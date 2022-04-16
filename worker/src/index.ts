@@ -1,12 +1,12 @@
 import keys from './keys';
-import redis from 'redis';
+import * as redis from 'redis';
 
 (async () => {
     const redisClient = redis.createClient({
         socket: {
             host: keys.redisHost,
             // port: keys.redisPort),
-            port: 9893,
+            port: 6379,
             reconnectStrategy: () => 1000
         },
     })

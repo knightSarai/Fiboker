@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import redis from 'redis';
+import * as redis from 'redis';
 import {Pool} from 'pg';
 import cors from 'cors';
 import keys from './keys';
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 const pgClient = new Pool({
     user: keys.pgUser,
     host: keys.pgHost,
-    // port: keys.pgPort,
+    port: 5432,
     database: keys.pgDatabase,
     password: keys.pgPassword
 })
@@ -30,7 +30,7 @@ const redisClient = redis.createClient({
     socket: {
         host: keys.redisHost,
         // port: keys.redisPort),
-        port: 9893,
+        port: 6379,
         reconnectStrategy: () => 1000
     },
 })
