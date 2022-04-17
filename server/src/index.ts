@@ -14,10 +14,10 @@ app.use(bodyParser.json());
 const pgClient = new Pool({
     user: keys.pgUser,
     host: keys.pgHost,
-    port: 5432,
+    port: keys.pgPort,
     database: keys.pgDatabase,
     password: keys.pgPassword
-})
+} as {[key:string]:string | number})
 
 pgClient.on('error', () => console.log("Lost PG connection"))
 pgClient.on("connect", (client) => {
