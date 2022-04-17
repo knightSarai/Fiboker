@@ -29,10 +29,9 @@ pgClient.on("connect", (client) => {
 const redisClient = redis.createClient({
     socket: {
         host: keys.redisHost,
-        // port: keys.redisPort),
-        port: 6379,
+        port: keys.redisPort,
         reconnectStrategy: () => 1000
-    },
+    } as {[key:string]: string | number | (() => number)},
 })
 await redisClient.connect()
 
