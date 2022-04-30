@@ -19,10 +19,6 @@ import * as redis from 'redis';
         return fib(index - 1) + fib(index - 2)
     }
 
-    sub.on('message', (channel: any, message: string) => {
-        redisClient.hSet('values', message, fib(parseInt(message)));
-    })
-
-    sub.subscribe('insert', (message: string) => console.log(message))
+    sub.subscribe('insert', (message: string) => redisClient.hSet('values', message, fib(parseInt(message))))
 
 })();

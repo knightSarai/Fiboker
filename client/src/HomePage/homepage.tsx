@@ -1,29 +1,37 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 
+type FebIndex = {[key: number]: string};
+type FebValues = FebIndex[];
+
 export const HomePage: React.FC = ()=> {
-    const [seenIndexes, setSeenIndexes] = useState<{[key: string]: number}[]>([])
-    const [values, setValues] = useState<{[key: string]: string}>({})
+    const [seenIndexes, setSeenIndexes] = useState<FebValues>([])
+    const [values, setValues] = useState<FebIndex>({})
     const [index, setIndex] = useState('')
 
     useEffect(()=> {
-        fetchValues();
+        requestHome();
+        fetchCachedValues();
         fetchIndexes();
-    }, []);
+    }, [])
 
-    const fetchValues = async () => {
-        const values: {[key: string]: string} = await axios.get('/api/values/current')
-        setValues(values)
+    const requestHome = async () => {
+        const data = await axios.get('/api/')
+    }
+
+    const fetchCachedValues = async () => {
+        const {data} = await axios.get<FebIndex>('/api/values/current/')
+        setValues(data)
     }
 
     const fetchIndexes = async () => {
-        const indexes: {data: {[key: string]: number}[] }= await axios.get('/api/values/all')
-        setSeenIndexes(indexes.data)
+        const {data} = await axios.get<FebValues>('/api/values/all/')
+        setSeenIndexes(data)
     }
 
     const handleSubmit = async (evt: React.SyntheticEvent) => {
         evt.preventDefault()
-        await axios.post('/api/values', {index})
+        await axios.post('/api/values/', {index})
         setIndex('')
     }
 
@@ -46,13 +54,13 @@ export const HomePage: React.FC = ()=> {
                 <label>Enter your index:</label>
                 <input 
                     value={index}
-                    onChange={evt => evt.target.value}
+                    onChange={evt => setIndex(evt.target.value)}
                  />
                 <button>Submit</button>
             </form>
-            <h3>Indexes I have seen:</h3>
+            <h3>Indexes I have entered:</h3>
             {renderSeenIndexes()}
-            <h3>Calculated Values</h3>
+            <h3>Cached Calculated Values</h3>
             {renderValues()}
         </div>
     )
