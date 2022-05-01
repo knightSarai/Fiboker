@@ -1,31 +1,27 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 
-type FebIndex = {[key: number]: string};
-type FebValues = FebIndex[];
+type FebIndexes = {'number': number}[];
+type FebValues = {[key: number]: string};
 
 export const HomePage: React.FC = ()=> {
-    const [seenIndexes, setSeenIndexes] = useState<FebValues>([])
-    const [values, setValues] = useState<FebIndex>({})
+    const [seenIndexes, setSeenIndexes] = useState<FebIndexes>([])
+    const [values, setValues] = useState<FebValues>({})
     const [index, setIndex] = useState('')
 
     useEffect(()=> {
-        requestHome();
         fetchCachedValues();
         fetchIndexes();
     }, [])
 
-    const requestHome = async () => {
-        const data = await axios.get('/api/')
-    }
 
     const fetchCachedValues = async () => {
-        const {data} = await axios.get<FebIndex>('/api/values/current/')
+        const {data} = await axios.get<FebValues>('/api/values/current/')
         setValues(data)
     }
 
     const fetchIndexes = async () => {
-        const {data} = await axios.get<FebValues>('/api/values/all/')
+        const {data} = await axios.get<FebIndexes>('/api/values/all/')
         setSeenIndexes(data)
     }
 
