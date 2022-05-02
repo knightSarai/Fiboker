@@ -1,4 +1,4 @@
-# Feboker
+# Fiboker
 
 An app to find the number in fibonacci sequence at given index
 
