@@ -1,6 +1,8 @@
 # Fiboker
 
-An app to find the number in fibonacci sequence at given index
+An app to find the number in fibonacci sequence at given index.
+
+The fibonacci sequence has been chosen here as an expensive task, and this architecture built to demonstrate how to work with such tasks.
 
 ## Stack
 
@@ -17,3 +19,5 @@ API --> Postgres
 Worker --> Redis
 Redis --> Worker
 ```
+
+This architecture was to complex for purpose of showing how to setup and work with multi containers application.
